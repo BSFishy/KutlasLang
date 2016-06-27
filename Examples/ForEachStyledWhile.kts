@@ -1,7 +1,7 @@
 
 class ForEachStyledWhile
 {
-    fun main(args:String...)
+    fun void main(args:String...)
     {
         while(String arg in args)
         {

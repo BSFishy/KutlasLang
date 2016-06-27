@@ -1,7 +1,7 @@
 
 class If
 {
-    fun main(args:String...)
+    fun void main(args:String...)
     {
         System.printline("Going into if statement")
 

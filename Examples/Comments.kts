@@ -1,7 +1,7 @@
 
 class Comments
 {
-    fun main(args:String...)
+    fun void main(args:String...)
     {
         # This is a line comment
         System.printline("This is the comments example")

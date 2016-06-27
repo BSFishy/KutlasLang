@@ -4,7 +4,7 @@ public class KutlasLang {
 
     public static void main(String[] args)
     {
-        
+
     }
 
 }
