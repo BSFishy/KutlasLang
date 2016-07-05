@@ -1,8 +1,8 @@
 
-class HelloWorld
-{
-    fun void main(args:String...)
+class HelloWorld {
+    fun void main()
     {
-        System.printline("Hello World!")
+         System.printline("Hello wo!")
+         System.printline("This is.")
     }
 }

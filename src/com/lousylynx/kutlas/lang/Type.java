@@ -1,8 +1,15 @@
 package com.lousylynx.kutlas.lang;
 
-public enum Type
-{
+public interface Type {
 
-    STRING, INTEGER;
-
+    public static Type match(String str)
+    {
+        try
+        {
+            return BuiltinType.valueOf(str.toUpperCase());
+        }catch(Exception e) {
+            //TODO: match str to class
+            return null;
+        }
+    }
 }

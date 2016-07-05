@@ -8,7 +8,7 @@ public class ClassParser extends Parser<Class> {
 
     @Override
     public boolean shouldParse(String line) {
-        return line.matches("class [a-zA-Z0-9]+");
+        return line.matches("class [a-zA-Z0-9]+( ?\\{)?");
     }
 
     @Override

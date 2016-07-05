@@ -13,14 +13,15 @@ public class Tokenizer {
     private Token lastToken;
     private boolean pushBack;
 
+    @SuppressWarnings("all")
     public Tokenizer(String str)
     {
         this.tokenDatas = new ArrayList<>();
         this.str = str;
 
-        tokenDatas.add(new TokenData(Pattern.compile("[^\\W][a-zA-Z0-9]+"), TokenType.IDENTIFIER));
+        tokenDatas.add(new TokenData(Pattern.compile("\".*\"|([^\\W]+)"), TokenType.IDENTIFIER));
+        tokenDatas.add(new TokenData(Pattern.compile("\"[^\"]*\""), TokenType.STRING_LITERAL));
         tokenDatas.add(new TokenData(Pattern.compile("(-)?[0-9]"), TokenType.INTEGER));
-        tokenDatas.add(new TokenData(Pattern.compile("\".*\""), TokenType.STRING_LITERAL));
 
         for(String t : new String[] { "=", "\\(", "\\)", "\\,", "\\{", "\\}", ":", "\\.\\.\\.", "\\." })
         {
@@ -50,12 +51,13 @@ public class Tokenizer {
             if(matcher.find())
             {
                 String token = matcher.group().trim();
-                str = matcher.replaceFirst("");
+                System.out.println(token + " " + data.getType());
 
-                if(data.getType() == TokenType.STRING_LITERAL)
-                {
+                if (token.endsWith("\"") && token.startsWith("\"")) {
+                    str = str.replace(matcher.group(1), "");
                     return (lastToken = new Token(token.substring(1, token.length() - 1), TokenType.STRING_LITERAL));
-                }else{
+                } else {
+                    str = str.replace(matcher.group(), "");
                     return (lastToken = new Token(token, data.getType()));
                 }
             }
