@@ -1,5 +1,7 @@
 package com.lousylynx.kutlas.lang.error;
 
+import com.lousylynx.kutlas.lang.ColorCodes;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +18,7 @@ public class Error {
     public static void throwError(Errors e, String data)
     {
         String m = errorMessages.get(e);
-        System.out.println(String.format(m, data));
+        System.out.println(ColorCodes.ParseColors(":red,N:" + String.format(m, data)));
         System.exit(1);
     }
 

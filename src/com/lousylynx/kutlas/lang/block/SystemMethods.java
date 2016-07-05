@@ -5,7 +5,7 @@ import com.lousylynx.kutlas.lang.block.systemVar.SystemfuncRegistry;
 
 import java.util.List;
 
-public class SystemMethods extends Block {
+public class SystemMethods extends SingleLineBlock {
 
     private String function;
     private List<String> args;
@@ -19,11 +19,11 @@ public class SystemMethods extends Block {
 
     @Override
     public void run() {
-        System.out.println(args);
         for(SystemFunction func : SystemfuncRegistry.getFunctions())
         {
             if(func.getName().equals(function))
             {
+                System.out.println(args);
                 func.run(args);
                 return;
             }

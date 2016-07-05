@@ -3,6 +3,7 @@ package com.lousylynx.kutlas.lang;
 import com.lousylynx.kutlas.lang.block.Block;
 import com.lousylynx.kutlas.lang.block.Class;
 import com.lousylynx.kutlas.lang.block.Method;
+import com.lousylynx.kutlas.lang.block.SingleLineBlock;
 import com.lousylynx.kutlas.lang.block.systemVar.PrintLine;
 import com.lousylynx.kutlas.lang.block.systemVar.SystemfuncRegistry;
 import com.lousylynx.kutlas.lang.error.Errors;
@@ -70,7 +71,9 @@ public class KutlasLang {
                         block.addBlock(newBlock);
                     }
 
-                    block = newBlock;
+                    if(!(newBlock instanceof SingleLineBlock)) {
+                        block = newBlock;
+                    }
                     success = true;
                     break;
                 }

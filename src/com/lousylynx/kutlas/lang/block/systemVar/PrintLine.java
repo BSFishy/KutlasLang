@@ -13,6 +13,9 @@ public class PrintLine extends SystemFunction {
         if(args.size() > 1)
         {
             throw new IllegalArgumentException("Too many arguments were given");
+        }else if(args.size() < 1)
+        {
+            return;
         }
 
         System.out.println(args.get(0));

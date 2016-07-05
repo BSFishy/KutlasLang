@@ -51,13 +51,12 @@ public class Tokenizer {
             if(matcher.find())
             {
                 String token = matcher.group().trim();
-                System.out.println(token + " " + data.getType());
+                str = matcher.replaceFirst("");
 
-                if (token.endsWith("\"") && token.startsWith("\"")) {
-                    str = str.replace(matcher.group(1), "");
+                if(token.startsWith("\"") && token.endsWith("\""))
+                {
                     return (lastToken = new Token(token.substring(1, token.length() - 1), TokenType.STRING_LITERAL));
-                } else {
-                    str = str.replace(matcher.group(), "");
+                }else{
                     return (lastToken = new Token(token, data.getType()));
                 }
             }

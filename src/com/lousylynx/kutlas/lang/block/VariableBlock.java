@@ -4,7 +4,7 @@ import com.lousylynx.kutlas.lang.BuiltinType;
 import com.lousylynx.kutlas.lang.Type;
 import com.lousylynx.kutlas.lang.Variable;
 
-public class VariableBlock extends Block
+public class VariableBlock extends SingleLineBlock
 {
 
     private String type, name;
