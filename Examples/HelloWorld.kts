@@ -2,7 +2,10 @@
 class HelloWorld {
     fun void main()
     {
-         System.printline("Hello wo!")
-         System.printline("This is.")
+        String t = "This is test #1"
+        System.printline(t)
+        System.printline("This is test #2")
+        System.printline("This is test #3")
+        System.printline("This is test #4")
     }
 }

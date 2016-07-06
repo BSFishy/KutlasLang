@@ -108,8 +108,6 @@ public class KutlasLang {
         main.run();
     }
 
-    public KutlasLang(){}
-
     public static void main(String[] args)
     {
         Path file = Paths.get(args[0]);
