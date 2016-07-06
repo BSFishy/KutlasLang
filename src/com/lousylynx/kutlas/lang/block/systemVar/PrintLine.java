@@ -24,7 +24,13 @@ public class PrintLine extends SystemFunction {
         String output;
         if(args.get(0).getType() == BuiltinType.VARIABLE)
         {
-            output = (String) (getSuperBlock().getVariable((String) args.get(0).getValue()).getValue());
+            if(getSuperBlock().getVariable((String) args.get(0).getValue()).getType() == BuiltinType.STRING)
+            {
+                output = (String) (getSuperBlock().getVariable((String) args.get(0).getValue()).getValue());
+            }else/* if(getSuperBlock().getVariable((String) args.get(0).getValue()).getType() == BuiltinType.INTEGER)*/
+            {
+                output = (getSuperBlock().getVariable((String) args.get(0).getValue()).getValue()).toString();
+            }
         }else{
             output = args.get(0).getValue().toString();
         }

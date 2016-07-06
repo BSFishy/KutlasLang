@@ -19,9 +19,9 @@ public class Tokenizer {
         this.tokenDatas = new ArrayList<>();
         this.str = str;
 
-        tokenDatas.add(new TokenData(Pattern.compile("\".*\"|([^\\W]+)"), TokenType.IDENTIFIER));
+        tokenDatas.add(new TokenData(Pattern.compile("\".*\"|([a-zA-Z]+)"), TokenType.IDENTIFIER));
         tokenDatas.add(new TokenData(Pattern.compile("\"[^\"]*\""), TokenType.STRING_LITERAL));
-        tokenDatas.add(new TokenData(Pattern.compile("(-)?[0-9]"), TokenType.INTEGER));
+        tokenDatas.add(new TokenData(Pattern.compile("(-)?[0-9]+"), TokenType.INTEGER));
 
         for(String t : new String[] { "=", "\\(", "\\)", "\\,", "\\{", "\\}", ":", "\\.\\.\\.", "\\." })
         {

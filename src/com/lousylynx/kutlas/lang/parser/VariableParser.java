@@ -15,7 +15,6 @@ public class VariableParser extends Parser<Block>
 
     @Override
     public Block parse(Block superBlock, Tokenizer tokenizer) {
-
         String type = tokenizer.nextToken().getToken();
         String name = tokenizer.nextToken().getToken();
         Token v = tokenizer.nextToken();
