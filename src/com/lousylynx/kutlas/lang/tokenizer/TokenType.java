@@ -16,6 +16,6 @@ public enum TokenType
     STRING_LITERAL,
 
     // Any type of number
-    INTEGER;
+    INTEGER, TokenType;
 
 }

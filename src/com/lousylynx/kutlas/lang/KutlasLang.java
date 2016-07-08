@@ -8,6 +8,7 @@ import com.lousylynx.kutlas.lang.block.systemVar.PrintLine;
 import com.lousylynx.kutlas.lang.block.systemVar.SystemfuncRegistry;
 import com.lousylynx.kutlas.lang.error.Errors;
 import com.lousylynx.kutlas.lang.parser.*;
+import com.lousylynx.kutlas.lang.tokenizer.TokenRegistry;
 import com.lousylynx.kutlas.lang.tokenizer.Tokenizer;
 
 import java.io.File;
@@ -146,5 +147,8 @@ public class KutlasLang {
 
         // Builtin system variable function registry
         SystemfuncRegistry.addFunction(new PrintLine());
+
+        // Builtin token registry
+        TokenRegistry.addTokens(new String[] {"+"});
     }
 }

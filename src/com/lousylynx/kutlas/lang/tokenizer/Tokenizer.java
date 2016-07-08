@@ -1,12 +1,10 @@
 package com.lousylynx.kutlas.lang.tokenizer;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Tokenizer {
 
-    private ArrayList<TokenData> tokenDatas;
+    private ArrayList<String> tokenDatas;
 
     private String str;
 
@@ -19,15 +17,21 @@ public class Tokenizer {
         this.tokenDatas = new ArrayList<>();
         this.str = str;
 
-        tokenDatas.add(new TokenData(Pattern.compile("\".*\"|([a-zA-Z]+)"), TokenType.IDENTIFIER));
+        /*tokenDatas.add(new TokenData(Pattern.compile("\".*\"|([a-zA-Z]+)"), TokenType.IDENTIFIER));
         tokenDatas.add(new TokenData(Pattern.compile("\"[^\"]*\""), TokenType.STRING_LITERAL));
-        tokenDatas.add(new TokenData(Pattern.compile("(-)?[0-9]+"), TokenType.INTEGER));
+        tokenDatas.add(new TokenData(Pattern.compile("(-)?[0-9]+"), TokenType.INTEGER));*/
 
-        for(String t : new String[] { "=", "\\(", "\\)", "\\,", "\\{", "\\}", ":", "\\.\\.\\.", "\\." })
+        for(String t : new String[] { "=", "(", ")", ",", "{", "}", ":", "...", "." })
         {
-            tokenDatas.add(new TokenData(Pattern.compile(t), TokenType.TOKEN));
+            tokenDatas.add(t);
+        }
+
+        for(String t : TokenRegistry.getTokens())
+        {
+            tokenDatas.add(t);
         }
     }
+
 
     public Token nextToken()
     {
@@ -44,25 +48,100 @@ public class Tokenizer {
             return (lastToken = new Token("", TokenType.EMPTY));
         }
 
-        for(TokenData data : tokenDatas)
+        String[] splitted = str.split("");
+        String retToken = "";
+        TokenType type = null;
+        String quotes = "\"";
+        for(String character : splitted)
         {
-            Matcher matcher = data.getPattern().matcher(str);
 
-            if(matcher.find())
+            //System.out.println((str.length() >= 1) ? (contains(str.substring(0, 1)) ? contains(str.substring(0, 1)) + " " + str : "") : "");
+            if(contains(character) && !(type != null && type.equals(TokenType.STRING_LITERAL)))
             {
-                String token = matcher.group().trim();
-                str = matcher.replaceFirst("");
+                //if(str.length() >= 1 && contains(str.substring(0, 1)))
+                //{
+                    //System.out.println(character);
+                    str = str.substring(retToken.length() + 1);
+                    return (lastToken = new Token(retToken, TokenType.IDENTIFIER));
+                //}
+            }
 
-                if(token.startsWith("\"") && token.endsWith("\""))
-                {
-                    return (lastToken = new Token(token.substring(1, token.length() - 1), TokenType.STRING_LITERAL));
-                }else{
-                    return (lastToken = new Token(token, data.getType()));
-                }
+            if((">".equals(character) || ">" == character) && type == TokenType.IDENTIFIER)
+            {
+                str = str.substring(retToken.length() + 1);
+                return (lastToken = new Token(retToken, TokenType.IDENTIFIER));
+            }
+
+            if((quotes.equals(character) || quotes == character) && type == null)
+            {
+                type = TokenType.STRING_LITERAL;
+                retToken += character;
+                continue;
+            }
+            //System.out.println((type == TokenType.STRING_LITERAL) ? retToken : "");
+
+            if(quotes.equals(character) && (type != null && type.equals(TokenType.STRING_LITERAL)))
+            {
+                str = str.substring(retToken.length() + 1);
+                return (lastToken = new Token(retToken.substring(1), type));
+            }
+
+            if(character.equals("-") && type == null)
+            {
+                type = TokenType.INTEGER;
+                retToken += character;
+                continue;
+            }
+
+            //System.out.println(type + " " + retToken);
+            if(character.matches("[0-9]") && (type == null || (type != null && type.equals(TokenType.INTEGER))))
+            {
+                type = TokenType.INTEGER;
+                retToken += character;
+                continue;
+            }
+
+            if(character.matches("[a-zA-Z0-9]") && ((type != null && type.equals(null)) || !(type != null && type.equals(TokenType.INTEGER))))
+            {
+                retToken += character;
+                type = ((type == TokenType.STRING_LITERAL) ? TokenType.STRING_LITERAL : TokenType.IDENTIFIER);
+                continue;
+            }
+
+            if(character.charAt(0) == ' ' && (type != null && !type.equals(TokenType.STRING_LITERAL)))
+            {
+                str = str.substring(retToken.length());
+                return (lastToken = new Token(retToken, type));
+            }
+
+            if((type != null && !type.equals(null)) || (type != null && type.equals(TokenType.STRING_LITERAL)))
+            {
+                retToken += character;
+                continue;
             }
         }
 
-        throw new IllegalStateException("Could not parse " + str);
+        if(str.substring(retToken.length()).isEmpty())
+        {
+            str = str.substring(retToken.length());
+            return (lastToken = new Token(retToken, type));
+        }
+
+        //System.out.println(type + " " + retToken);
+
+        throw new IllegalStateException("Could not parse '" + str + "'");
+    }
+
+    private boolean contains(String character)
+    {
+        for(String t : tokenDatas)
+        {
+            if(t.equalsIgnoreCase(character))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean hasNextToken()

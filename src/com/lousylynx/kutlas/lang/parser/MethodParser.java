@@ -1,7 +1,7 @@
 package com.lousylynx.kutlas.lang.parser;
 
-import com.lousylynx.kutlas.lang.Parameter;
 import com.lousylynx.kutlas.lang.BuiltinType;
+import com.lousylynx.kutlas.lang.Parameter;
 import com.lousylynx.kutlas.lang.block.Block;
 import com.lousylynx.kutlas.lang.block.Method;
 import com.lousylynx.kutlas.lang.tokenizer.Token;
@@ -14,7 +14,7 @@ public class MethodParser extends Parser<Method>
     @Override
     public boolean shouldParse(String line)
     {
-        return line.matches("fun [^\\W][a-zA-Z0-9]+ [^\\W][a-zA-Z0-9]+\\(([^\\W][a-zA-Z0-9]+:[^\\W][a-zA-Z0-9]+)*\\)( ?\\{)?");
+        return line.matches("fun [^\\W][a-zA-Z0-9]+ [^\\W][a-zA-Z0-9]+ \\(([^\\W][a-zA-Z0-9]+:[^\\W][a-zA-Z0-9]+)*\\)( ?\\{)?");
     }
 
     @Override
@@ -40,6 +40,9 @@ public class MethodParser extends Parser<Method>
                 if(token.getToken().equals(")"))
                 {
                     break;
+                }else if(token.getToken().equals("("))
+                {
+                    continue;
                 }
 
                 if(paramData[0] == null)
