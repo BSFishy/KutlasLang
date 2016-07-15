@@ -3,6 +3,7 @@ package com.lousylynx.kutlas.lang.block;
 import com.lousylynx.kutlas.lang.BuiltinType;
 import com.lousylynx.kutlas.lang.Type;
 import com.lousylynx.kutlas.lang.Variable;
+import com.lousylynx.kutlas.lang.error.*;
 
 public class VariableBlock extends SingleLineBlock
 {
@@ -24,7 +25,7 @@ public class VariableBlock extends SingleLineBlock
 
         if(t == BuiltinType.VOID)
         {
-            throw new IllegalStateException("Cannot declare void methods.");
+            com.lousylynx.kutlas.lang.error.Error.throwError(Errors.VOIDVARS);
         }
 
         getSuperBlock().addVariable(new Variable(getSuperBlock(), Type.match(type), name, value));

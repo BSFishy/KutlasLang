@@ -14,7 +14,7 @@ import java.util.List;
 public class SystemMethodsParser extends Parser<Block> {
     @Override
     public boolean shouldParse(String line) {
-        return line.matches("System\\->[^\\W][a-zA-Z0-9]+:\\((.*)?\\)"); // is 'System->[?]:(?)
+        return line.matches("System\\.[a-zA-Z0-9]+\\((.*)?\\)"); // is 'System->[?]:(?)
     }
 
     @Override
@@ -26,6 +26,7 @@ public class SystemMethodsParser extends Parser<Block> {
         System.out.println("done");
         return null;*/
         tokenizer.nextToken(); // System
+        tokenizer.nextToken();
         String function = tokenizer.nextToken().getToken();
         tokenizer.nextToken();
         List<Value> args = new ArrayList<>();

@@ -2,6 +2,7 @@ package com.lousylynx.kutlas.lang.block.systemVar;
 
 import com.lousylynx.kutlas.lang.BuiltinType;
 import com.lousylynx.kutlas.lang.Value;
+import com.lousylynx.kutlas.lang.error.*;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class PrintLine extends SystemFunction {
     public void run(List<Value> args) {
         if(args.size() > 1)
         {
-            throw new IllegalArgumentException("Too many arguments were given");
+            com.lousylynx.kutlas.lang.error.Error.throwError(Errors.TOOMANYARGS);
         }else if(args.size() < 1)
         {
             return;

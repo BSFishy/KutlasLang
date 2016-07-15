@@ -2,6 +2,22 @@ package com.lousylynx.kutlas.lang.error;
 
 public enum Errors {
 
-    LINECOULDNOTPARSE
+    LINECOULDNOTPARSE,
+
+    NOMAINMETHOD,
+
+    WRONGPARAMNUMBER,
+
+    WRONGPARAM,
+
+    METHODRETURNSNOTHING,
+
+    NOSYSFUNC,
+
+    VOIDVARS,
+
+    TOOMANYARGS,
+
+    COULDNOTPARSE
 
 }

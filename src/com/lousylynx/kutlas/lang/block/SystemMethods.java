@@ -3,6 +3,7 @@ package com.lousylynx.kutlas.lang.block;
 import com.lousylynx.kutlas.lang.Value;
 import com.lousylynx.kutlas.lang.block.systemVar.SystemFunction;
 import com.lousylynx.kutlas.lang.block.systemVar.SystemfuncRegistry;
+import com.lousylynx.kutlas.lang.error.*;
 
 import java.util.List;
 
@@ -29,6 +30,6 @@ public class SystemMethods extends SingleLineBlock {
                 return;
             }
         }
-        throw new IllegalStateException("System function not found: " + function);
+        com.lousylynx.kutlas.lang.error.Error.throwError(Errors.NOSYSFUNC);
     }
 }

@@ -2,6 +2,7 @@ package com.lousylynx.kutlas.lang.parser;
 
 import com.lousylynx.kutlas.lang.block.Block;
 import com.lousylynx.kutlas.lang.block.VariableBlock;
+import com.lousylynx.kutlas.lang.block.condition.ConditionHandler;
 import com.lousylynx.kutlas.lang.tokenizer.Token;
 import com.lousylynx.kutlas.lang.tokenizer.TokenType;
 import com.lousylynx.kutlas.lang.tokenizer.Tokenizer;
@@ -24,7 +25,17 @@ public class VariableParser extends Parser<Block>
         String type = tokenizer.nextToken().getToken();
         String name = tokenizer.nextToken().getToken();
         tokenizer.nextToken();
-        Token v = tokenizer.nextToken();
+
+        String cond = "";
+        while(tokenizer.hasNextToken())
+        {
+            Token t = tokenizer.nextToken();
+            if(t.getType() != TokenType.STRING_LITERAL)
+                cond += t.getToken();
+            else
+                cond += "\"" + t.getToken() + "\"";
+        }
+        Token v = new ConditionHandler(cond).run();
 
         Object value;
 
@@ -32,6 +43,9 @@ public class VariableParser extends Parser<Block>
         {
             value = Integer.valueOf(v.getToken());
         }else if(v.getType() == TokenType.STRING_LITERAL)
+        {
+            value = v.getToken();
+        }else if(v.getType() == TokenType.BOOLEAN)
         {
             value = v.getToken();
         }else

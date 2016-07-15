@@ -4,9 +4,11 @@ import com.lousylynx.kutlas.lang.block.Block;
 import com.lousylynx.kutlas.lang.block.Class;
 import com.lousylynx.kutlas.lang.block.Method;
 import com.lousylynx.kutlas.lang.block.SingleLineBlock;
+import com.lousylynx.kutlas.lang.block.condition.ConditionRegistry;
+import com.lousylynx.kutlas.lang.block.condition.SimpleMathCondition;
 import com.lousylynx.kutlas.lang.block.systemVar.PrintLine;
 import com.lousylynx.kutlas.lang.block.systemVar.SystemfuncRegistry;
-import com.lousylynx.kutlas.lang.error.Errors;
+import com.lousylynx.kutlas.lang.error.*;
 import com.lousylynx.kutlas.lang.parser.*;
 import com.lousylynx.kutlas.lang.tokenizer.TokenRegistry;
 import com.lousylynx.kutlas.lang.tokenizer.Tokenizer;
@@ -103,7 +105,7 @@ public class KutlasLang {
 
         if(main == null)
         {
-            throw new IllegalStateException("No main method.");
+            com.lousylynx.kutlas.lang.error.Error.throwError(Errors.NOMAINMETHOD);
         }
 
         main.run();
@@ -149,6 +151,9 @@ public class KutlasLang {
         SystemfuncRegistry.addFunction(new PrintLine());
 
         // Builtin token registry
-        TokenRegistry.addTokens(new String[] {"+"});
+        TokenRegistry.addTokens(new String[] {"+", "-", ">", "/", "*", "^"});
+
+        // Builtin condition registry
+        ConditionRegistry.addCondition(new SimpleMathCondition());
     }
 }

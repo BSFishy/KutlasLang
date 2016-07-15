@@ -16,6 +16,9 @@ public enum TokenType
     STRING_LITERAL,
 
     // Any type of number
-    INTEGER, TokenType;
+    INTEGER,
+
+    // A true or false
+    BOOLEAN;
 
 }

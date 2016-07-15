@@ -1,6 +1,8 @@
 package com.lousylynx.kutlas.lang.block;
 
 import com.lousylynx.kutlas.lang.*;
+import com.lousylynx.kutlas.lang.error.Error;
+import com.lousylynx.kutlas.lang.error.Errors;
 
 public class Method extends Block
 {
@@ -45,7 +47,7 @@ public class Method extends Block
 
         if(values.length != params.length)
         {
-            throw new IllegalArgumentException("Wrong number of values for parameters.");
+            com.lousylynx.kutlas.lang.error.Error.throwError(Errors.WRONGPARAMNUMBER);
         }
 
         for(int i=0; i < values.length && i < params.length; i++)
@@ -55,7 +57,7 @@ public class Method extends Block
 
             if(p.getType() != v.getType())
             {
-                throw new IllegalStateException("Wrong parameter " + v.getType() + ". Requires " + p.getType() + ".");
+                Error.throwError(Errors.WRONGPARAM, v.getType().toString(), p.getType().toString());
             }
 
             addVariable(new Variable(this, p.getType(), p.getName(), v.getValue()));
@@ -73,7 +75,7 @@ public class Method extends Block
 
         if(returnValue == null && t != BuiltinType.VOID)
         {
-            throw new IllegalStateException("Method does not return anything.");
+            Error.throwError(Errors.METHODRETURNSNOTHING);
         }
 
         Value localReturnValue = returnValue;

@@ -1,5 +1,7 @@
 package com.lousylynx.kutlas.lang.tokenizer;
 
+import com.lousylynx.kutlas.lang.error.*;
+
 import java.util.ArrayList;
 
 public class Tokenizer {
@@ -32,7 +34,6 @@ public class Tokenizer {
         }
     }
 
-
     public Token nextToken()
     {
         str = str.trim();
@@ -54,23 +55,31 @@ public class Tokenizer {
         String quotes = "\"";
         for(String character : splitted)
         {
+            if(((retToken + character).equals("True") || (retToken + character).equals("False")) && type != null && !type.equals(TokenType.STRING_LITERAL))
+            {
+                str = str.substring(retToken.length() + 1);
+                return (lastToken = new Token(retToken + character, TokenType.BOOLEAN));
+            }
 
             //System.out.println((str.length() >= 1) ? (contains(str.substring(0, 1)) ? contains(str.substring(0, 1)) + " " + str : "") : "");
             if(contains(character) && !(type != null && type.equals(TokenType.STRING_LITERAL)))
             {
-                //if(str.length() >= 1 && contains(str.substring(0, 1)))
-                //{
-                    //System.out.println(character);
-                    str = str.substring(retToken.length() + 1);
+                if(retToken.isEmpty())
+                {
+                    str = str.substring(1);
+                    return (lastToken = new Token(character, TokenType.TOKEN));
+                } else {
+                    str = str.substring(retToken.length());
+                    //pushBack();
                     return (lastToken = new Token(retToken, TokenType.IDENTIFIER));
-                //}
+                }
             }
 
-            if((">".equals(character) || ">" == character) && type == TokenType.IDENTIFIER)
+            /*if((">".equals(character) || ">" == character) && type == TokenType.IDENTIFIER)
             {
                 str = str.substring(retToken.length() + 1);
                 return (lastToken = new Token(retToken, TokenType.IDENTIFIER));
-            }
+            }*/
 
             if((quotes.equals(character) || quotes == character) && type == null)
             {
@@ -129,7 +138,9 @@ public class Tokenizer {
 
         //System.out.println(type + " " + retToken);
 
-        throw new IllegalStateException("Could not parse '" + str + "'");
+        com.lousylynx.kutlas.lang.error.Error.throwError(Errors.COULDNOTPARSE, str);
+        System.exit(1);
+        return null;
     }
 
     private boolean contains(String character)
