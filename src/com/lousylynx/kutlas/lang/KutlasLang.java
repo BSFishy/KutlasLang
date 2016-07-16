@@ -5,6 +5,7 @@ import com.lousylynx.kutlas.lang.block.Class;
 import com.lousylynx.kutlas.lang.block.Method;
 import com.lousylynx.kutlas.lang.block.SingleLineBlock;
 import com.lousylynx.kutlas.lang.block.condition.ConditionRegistry;
+import com.lousylynx.kutlas.lang.block.condition.SimpleConditions;
 import com.lousylynx.kutlas.lang.block.condition.SimpleMathCondition;
 import com.lousylynx.kutlas.lang.block.systemVar.PrintLine;
 import com.lousylynx.kutlas.lang.block.systemVar.SystemfuncRegistry;
@@ -151,9 +152,10 @@ public class KutlasLang {
         SystemfuncRegistry.addFunction(new PrintLine());
 
         // Builtin token registry
-        TokenRegistry.addTokens(new String[] {"+", "-", ">", "/", "*", "^"});
+        TokenRegistry.addTokens(new String[] {"=", "(", ")", ",", "{", "}", ":", "...", ".", "+", "-", "<", ">", "/", "*", "^"});
 
         // Builtin condition registry
         ConditionRegistry.addCondition(new SimpleMathCondition());
+        ConditionRegistry.addCondition(new SimpleConditions());
     }
 }

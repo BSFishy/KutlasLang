@@ -23,10 +23,10 @@ public class Tokenizer {
         tokenDatas.add(new TokenData(Pattern.compile("\"[^\"]*\""), TokenType.STRING_LITERAL));
         tokenDatas.add(new TokenData(Pattern.compile("(-)?[0-9]+"), TokenType.INTEGER));*/
 
-        for(String t : new String[] { "=", "(", ")", ",", "{", "}", ":", "...", "." })
+        /*for(String t : new String[] { "=", "(", ")", ",", "{", "}", ":", "...", "." })
         {
             tokenDatas.add(t);
-        }
+        }*/
 
         for(String t : TokenRegistry.getTokens())
         {
