@@ -9,3 +9,6 @@ Kutlas Lang has a main file here: [link](https://github.com/mttprvst13/KutlasLan
 
 ### What if I want to help?
 I am always looking for help. This is definitely not a one man operation. If you want to help, create your own branch, and push your code there. Once you have some code that works, you can submit a pull request. If I see nothing wrong with your changes, I will accept them. If I see you actively working on this project, I will add you to the contributors list, so you can add code, without having to submit a pull request.
+
+## Credit
+I want to give credit to [Pogo](https://www.youtube.com/user/PogoStick29Dev), for the "[Lets Make a Programming Language](https://www.youtube.com/playlist?list=PLAF3anQEEkzRuJ7UW82CmSEtT6g-J4Q_p)" series. I modified a lot of code, based on his, but the bare bones are from him. Any helpers after that, will be listed here.
